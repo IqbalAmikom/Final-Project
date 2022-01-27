@@ -1,0 +1,39 @@
+void loop()
+{
+//Jika bluetooth tersedia
+while (BT.available())
+{
+//delay penerimaan data 10 milidetik
+delay(10);
+//Inialisasi c adalah karakter yang dibaca bluetooth
+char c = BT.read();
+//Membuat c menjadi data String
+dataDikirim += c;
+}
+
+//Jika panjang data dari "dataDikirim" >= 0, maka
+if (dataDikirim.length() > 0)
+{
+//Menulis pada serial monitor data yang dikirim dari android
+Serial.println(dataDikirim);
+
+//Jika data yang dikirim berupa kalimat "ON", maka
+if (dataDikirim == "LampuON")
+{
+//Lampu menyala
+digitalWrite(pinLampu, LOW);
+}
+
+//Jika data yang dikirim berupa kalimat "OFF", maka
+else if (dataDikirim == "LampuOFF")
+{
+//Lampu padam
+digitalWrite(pinLampu, HIGH);
+}
+
+//Mengkosongkan dataDikirim
+dataDikirim = "";
+}
+
+delay(100);
+}
